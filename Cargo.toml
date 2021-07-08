@@ -1,6 +1,6 @@
 [package]
 name = "address-cmp"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Xavientois <joshua.rampersad@hotmail.com>"]
 description = "An attribute for address comparison"
 edition = "2018"
