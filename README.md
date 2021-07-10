@@ -1,4 +1,7 @@
 # Easy Address Comparison
+[![GitHub license](https://img.shields.io/github/license/Xavientois/address-cmp)](https://github.com/Xavientois/address-cmp)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Xavientois/address-cmp/tests)
+![Crates.io](https://img.shields.io/crates/v/address-cmp)
 
 A set of macros to allow your types to be compared based on where they are stored in memory. This is useful when two instances of a type should not be considered equal unless they are literally the same instance.
 
