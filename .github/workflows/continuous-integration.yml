@@ -1,6 +1,5 @@
+name: tests
 on: [pull_request]
-
-name: Continuous integration
 
 jobs:
   check:
