@@ -1,6 +1,7 @@
+mod util;
+
 use address_cmp::*;
-use std::hash::Hash;
-use std::{collections::hash_map::RandomState, hash::BuildHasher};
+use util::calculate_hash;
 
 #[test]
 fn same_enum_is_equal() {
@@ -35,15 +36,14 @@ fn same_enum_is_hashed_the_same() {
     }
 
     let a = A::B;
-    let mut state = RandomState::new().build_hasher();
-    let hash1 = a.hash(&mut state);
-    let hash2 = a.hash(&mut state);
+    let hash1 = calculate_hash(&a);
+    let hash2 = calculate_hash(&a);
 
     assert_eq!(hash1, hash2);
 }
 
 #[test]
-fn different_enum_is_hashed_the_differently() {
+fn different_enum_is_hashed_differently() {
     #[derive(AddressHash)]
     enum A {
         B,
@@ -51,11 +51,10 @@ fn different_enum_is_hashed_the_differently() {
 
     let a1 = A::B;
     let a2 = A::B;
-    let mut state = RandomState::new().build_hasher();
-    let hash1 = a1.hash(&mut state);
-    let hash2 = a2.hash(&mut state);
+    let hash1 = calculate_hash(&a1);
+    let hash2 = calculate_hash(&a2);
 
-    assert_eq!(hash1, hash2);
+    assert_ne!(hash1, hash2);
 }
 
 #[test]

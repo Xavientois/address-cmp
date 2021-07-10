@@ -1,8 +1,10 @@
-# Address Comparison
+# Easy Address Comparison
 
-This macro will allow you to annotate your types to indicate that two instances of that type are only equal if they exist at the exact same address (if they are literally the same instance).
+A set of macros to allow your types to be compared based on where they are stored in memory. This is useful when two instances of a type should not be considered equal unless they are literally the same instance.
 
 With this crate, you can derive `AddressEq`, `AddressOrd`, or `AddressHash` depending on your needs.
+
+## Usage
 
 ```rust
 use address_cmp::AddressEq;

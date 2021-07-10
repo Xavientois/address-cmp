@@ -1,6 +1,7 @@
+mod util;
+
 use address_cmp::*;
-use std::hash::Hash;
-use std::{collections::hash_map::RandomState, hash::BuildHasher};
+use util::calculate_hash;
 
 #[test]
 fn same_struct_is_equal() {
@@ -84,15 +85,14 @@ fn same_struct_is_hashed_the_same() {
     }
 
     let a = A { a: 0 };
-    let mut state = RandomState::new().build_hasher();
-    let hash1 = a.hash(&mut state);
-    let hash2 = a.hash(&mut state);
+    let hash1 = calculate_hash(&a);
+    let hash2 = calculate_hash(&a);
 
     assert_eq!(hash1, hash2);
 }
 
 #[test]
-fn different_struct_is_hashed_the_differently() {
+fn different_struct_is_hashed_differently() {
     #[derive(AddressHash)]
     struct A {
         pub a: u8,
@@ -100,11 +100,10 @@ fn different_struct_is_hashed_the_differently() {
 
     let a1 = A { a: 0 };
     let a2 = A { a: 0 };
-    let mut state = RandomState::new().build_hasher();
-    let hash1 = a1.hash(&mut state);
-    let hash2 = a2.hash(&mut state);
+    let hash1 = calculate_hash(&a1);
+    let hash2 = calculate_hash(&a2);
 
-    assert_eq!(hash1, hash2);
+    assert_ne!(hash1, hash2);
 }
 
 #[test]
@@ -113,9 +112,8 @@ fn same_empty_struct_is_hashed_the_same() {
     struct A {}
 
     let a = A {};
-    let mut state = RandomState::new().build_hasher();
-    let hash1 = a.hash(&mut state);
-    let hash2 = a.hash(&mut state);
+    let hash1 = calculate_hash(&a);
+    let hash2 = calculate_hash(&a);
 
     assert_eq!(hash1, hash2);
 }
@@ -127,11 +125,10 @@ fn different_empty_struct_is_hashed_the_differently() {
 
     let a1 = A {};
     let a2 = A {};
-    let mut state = RandomState::new().build_hasher();
-    let hash1 = a1.hash(&mut state);
-    let hash2 = a2.hash(&mut state);
+    let hash1 = calculate_hash(&a1);
+    let hash2 = calculate_hash(&a2);
 
-    assert_eq!(hash1, hash2);
+    assert_ne!(hash1, hash2);
 }
 
 #[test]
